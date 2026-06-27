@@ -477,4 +477,27 @@ const faqs = [
 :global(.dark) .wechat-qr-placeholder { background: #111827; border-color: #374151; }
 .wechat-hint { font-size: 0.85rem; color: #6b7280; }
 :global(.dark) .wechat-hint { color: #9ca3af; }
+
+/* ===== 480px Mobile ===== */
+@media (max-width: 480px) {
+  .help-hero { padding: 3rem 0; }
+  .hero-title { font-size: 1.6rem; }
+  .hero-sub { font-size: 0.95rem; }
+
+  .help-body { padding: 2rem 0; }
+  .action-cards { gap: 1rem; margin-bottom: 2.5rem; }
+  .action-card-header { padding: 1rem; }
+  .action-card-icon { font-size: 1.6rem; }
+  .action-card-title { font-size: 1rem; }
+  .action-card-body { padding: 0 1rem 1rem; }
+
+  .contact-options { gap: 0.6rem; }
+  .contact-option { padding: 0.85rem 1rem; gap: 0.75rem; }
+  .co-icon { font-size: 1.3rem; }
+  .co-value { font-size: 0.88rem; }
+
+  .faq-title { font-size: 1.2rem; }
+  .faq-question { padding: 0.9rem 1rem; font-size: 0.9rem; }
+  .faq-answer { padding: 0 1rem 1rem; font-size: 0.88rem; }
+}
 </style>

@@ -22,8 +22,8 @@ export const translations = {
       aboutText: '拥有15年行业经验，为全球摩托爱好者提供高品质配件',
       contact: '联系我们',
       email: '邮箱: info@motoshop.com',
-      phone: '电话: +86-XXX-XXXX-XXXX',
-      address: '地址: 中国 · 全国服务'
+      phone: '电话: +855 12 345 678',
+      address: '地址: 金边，柬埔寨'
     },
     products: {
       title: '我们的产品',
@@ -74,10 +74,12 @@ export const translations = {
     },
     language: {
       selectLanguage: '选择语言',
-      chinese: '中文 (Chinese)',
-      english: '英语 (English)'
+      chinese: '中文',
+      english: '英语',
+      khmer: '高棉语'
     }
   },
+
   en: {
     nav: {
       home: 'Home',
@@ -101,8 +103,8 @@ export const translations = {
       aboutText: 'With 15 years of industry experience, we serve motorcycle enthusiasts worldwide',
       contact: 'Contact Us',
       email: 'Email: info@motoshop.com',
-      phone: 'Phone: +86-XXX-XXXX-XXXX',
-      address: 'Address: China · Nationwide Service'
+      phone: 'Phone: +855 12 345 678',
+      address: 'Address: Phnom Penh, Cambodia'
     },
     products: {
       title: 'Our Products',
@@ -150,18 +152,105 @@ export const translations = {
       privacy: 'Privacy Policy',
       terms: 'Terms of Service',
       copyright: '© 2024 Moto Parts Shop. All rights reserved.'
+    },
+    language: {
+      selectLanguage: 'Select Language',
+      chinese: 'Chinese',
+      english: 'English',
+      khmer: 'Khmer'
+    }
+  },
+
+  km: {
+    nav: {
+      home: 'ទំព័រដើម',
+      products: 'ផលិតផល',
+      about: 'អំពីយើង',
+      help: 'មជ្ឈមណ្ឌលជំនួយ',
+      login: 'ចូល',
+      logout: 'ចេញ',
+      language: 'ភាសា',
+      darkMode: 'របៀបងងឹត',
+      lightMode: 'របៀបភ្លឺ',
+      admin: 'ទំព័រគ្រប់គ្រង'
+    },
+    home: {
+      title: 'សូមស្វាគមន៍មកកាន់ហាងគ្រឿងម៉ូតូ',
+      subtitle: 'គ្រឿងម៉ូតូប្រកបដោយគុណភាពខ្ពស់ ជាមួយសេវាកម្មជំនាញ',
+      tagline: 'យើងផ្តល់នូវគ្រឿងម៉ូតូប្រកបដោយគុណភាពខ្ពស់បំផុត និងការគាំទ្របច្ចេកទេសប្រកបដោយជំនាញ',
+      cta: 'មើលផលិតផល',
+      featured: 'ផលិតផលណែនាំ',
+      about: 'អំពីយើង',
+      aboutText: 'ជាមួយនឹងបទពិសោធន៍ 15 ឆ្នាំ យើងផ្តល់សេវាកម្មដល់អ្នកចូលចិត្តម៉ូតូទូទាំងពិភពលោក',
+      contact: 'ទំនាក់ទំនងយើង',
+      email: 'អ៊ីមែល: info@motoshop.com',
+      phone: 'ទូរស័ព្ទ: +855 12 345 678',
+      address: 'អាសយដ្ឋាន: ភ្នំពេញ, កម្ពុជា'
+    },
+    products: {
+      title: 'ផលិតផលរបស់យើង',
+      subtitle: 'កាតាឡុកគ្រឿងម៉ូតូប្រភេទល្អ',
+      filter: 'តម្រង',
+      price: 'តម្លៃ',
+      category: 'ប្រភេទ',
+      sort: 'តម្រៀប',
+      addToCart: 'បន្ថែមទៅកន្ត្រក',
+      viewDetails: 'មើលព័ត៌មានលម្អិត',
+      inStock: 'មានស្តុក',
+      outOfStock: 'អស់ស្តុក',
+      allCategories: 'ប្រភេទទាំងអស់',
+      engineParts: 'គ្រឿងម៉ាស៊ីន',
+      suspension: 'ប្រព័ន្ធព្យួរ',
+      brakes: 'ប្រព័ន្ធហ្វ្រាំង',
+      wheels: 'កង់ & កាំភ្លើង',
+      accessories: 'គ្រឿងបន្លាស់'
+    },
+    login: {
+      title: 'ចូលគណនី',
+      username: 'ឈ្មោះអ្នកប្រើ',
+      password: 'លេខសម្ងាត់',
+      rememberMe: 'ចងចាំខ្ញុំ',
+      submit: 'ចូល',
+      noAccount: 'មិនទាន់មានគណនី?',
+      signup: 'ចុះឈ្មោះ',
+      error: 'ឈ្មោះអ្នកប្រើ ឬលេខសម្ងាត់មិនត្រឹមត្រូវ'
+    },
+    admin: {
+      title: 'ផ្ទាំងគ្រប់គ្រង',
+      dashboard: 'ផ្ទាំងព័ត៌មាន',
+      products: 'គ្រប់គ្រងផលិតផល',
+      users: 'គ្រប់គ្រងអ្នកប្រើ',
+      orders: 'គ្រប់គ្រងការបញ្ជាទិញ',
+      feedbacks: 'មតិយោបល់',
+      settings: 'ការកំណត់',
+      addProduct: 'បន្ថែមផលិតផល',
+      editProduct: 'កែប្រែផលិតផល',
+      deleteProduct: 'លុបផលិតផល'
+    },
+    footer: {
+      about: 'អំពីយើង',
+      contact: 'ទំនាក់ទំនង',
+      privacy: 'គោលការណ៍ឯកជនភាព',
+      terms: 'លក្ខខណ្ឌសេវាកម្ម',
+      copyright: '© 2024 ហាងគ្រឿងម៉ូតូ។ រក្សាសិទ្ធិគ្រប់យ៉ាង។'
+    },
+    language: {
+      selectLanguage: 'ជ្រើសរើសភាសា',
+      chinese: 'ចិន',
+      english: 'អង់គ្លេស',
+      khmer: 'ខ្មែរ'
     }
   }
 }
 
-export function t(key, language = 'zh') {
+export function t(key, language = localStorage.getItem('language') || 'zh') {
   const keys = key.split('.')
   let value = translations[language]
-  
+
   for (const k of keys) {
     value = value?.[k]
     if (value === undefined) break
   }
-  
+
   return value || key
 }

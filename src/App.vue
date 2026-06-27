@@ -23,6 +23,7 @@ onMounted(async () => {
   if (store.darkMode) {
     document.documentElement.classList.add('dark')
   }
+  document.documentElement.lang = store.language || 'zh'
 })
 
 </script>

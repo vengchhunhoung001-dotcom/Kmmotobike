@@ -6,9 +6,8 @@
     </div>
 
     <div class="login-wrap">
-      <!-- Card -->
       <div class="login-card">
-        <!-- Card Header -->
+        <!-- Header -->
         <div class="card-header">
           <div class="card-logo">⚙</div>
           <h1 class="card-brand">MotoShop</h1>
@@ -17,48 +16,25 @@
 
         <!-- Form -->
         <div class="card-body">
-          <form @submit.prevent="handleLogin">
-            <div class="field">
-              <label class="field-label">{{ t('login.username') }}</label>
-              <input v-model="username" type="text" placeholder="admin" />
-            </div>
-
-            <div class="field">
-              <label class="field-label">{{ t('login.password') }}</label>
-              <input v-model="password" type="password" placeholder="password" />
-            </div>
-
-            <div class="field-check">
-              <label class="check-label">
-                <input v-model="rememberMe" type="checkbox" />
-                <span>{{ t('login.rememberMe') }}</span>
-              </label>
-            </div>
-
-            <div v-if="error" class="error-msg">{{ error }}</div>
-
-            <button type="submit" class="btn-primary submit-btn">{{ t('login.submit') }}</button>
-          </form>
-
-          <div class="signup-row">
-            <p class="signup-text">
-              {{ t('login.noAccount') }}
-              <a href="#" class="signup-link">{{ t('login.signup') }}</a>
-            </p>
+          <div class="field">
+            <label class="field-label">{{ t('login.username') }} (Email)</label>
+            <input v-model="email" type="email" placeholder="admin@example.com" autocomplete="email" />
           </div>
 
-          <!-- Demo Account -->
-          <div class="demo-box">
-            <h3 class="demo-title">Demo Account:</h3>
-            <p class="demo-info">
-              <strong>Username:</strong> admin<br />
-              <strong>Password:</strong> password
-            </p>
+          <div class="field">
+            <label class="field-label">{{ t('login.password') }}</label>
+            <input v-model="password" type="password" placeholder="••••••••" autocomplete="current-password" />
           </div>
+
+          <div v-if="error" class="error-msg">{{ error }}</div>
+
+          <button @click="handleLogin" :disabled="loading" class="btn-primary submit-btn">
+            <span v-if="loading">登录中...</span>
+            <span v-else>{{ t('login.submit') }}</span>
+          </button>
         </div>
       </div>
 
-      <!-- Back Link -->
       <div class="back-link-wrap">
         <router-link to="/" class="back-link">← {{ t('nav.home') }}</router-link>
       </div>
@@ -75,18 +51,24 @@ import { t } from '../assets/i18n'
 const router = useRouter()
 const store = useAppStore()
 
-const username = ref('')
+const email = ref('')
 const password = ref('')
-const rememberMe = ref(true)
 const error = ref('')
+const loading = ref(false)
 
-const handleLogin = () => {
+const handleLogin = async () => {
   error.value = ''
-  if (username.value === 'admin' && password.value === 'password') {
-    store.login({ username: username.value, email: 'admin@motoshop.com', role: 'admin' })
-    router.push('/admin')
+  if (!email.value || !password.value) {
+    error.value = '请输入邮箱和密码'
+    return
+  }
+  loading.value = true
+  const { error: authError } = await store.login(email.value, password.value)
+  loading.value = false
+  if (authError) {
+    error.value = '邮箱或密码错误，请重试'
   } else {
-    error.value = t('login.error')
+    router.push('/admin')
   }
 }
 </script>
@@ -164,17 +146,22 @@ const handleLogin = () => {
 }
 :global(.dark) .field-label { color: #d1d5db; }
 
-.field-check { margin-bottom: 1.5rem; }
-.check-label {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  cursor: pointer;
-  color: #4b5563;
-  font-size: 0.9rem;
+.field input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
 }
-:global(.dark) .check-label { color: #9ca3af; }
-.check-label input { width: 1rem; height: 1rem; accent-color: #f97316; cursor: pointer; }
+.field input:focus { border-color: #f97316; box-shadow: 0 0 0 3px rgba(249,115,22,0.15); }
+:global(.dark) .field input {
+  background-color: #1f2937;
+  border-color: #374151;
+  color: #f9fafb;
+}
 
 .error-msg {
   margin-bottom: 1.5rem;
@@ -185,37 +172,15 @@ const handleLogin = () => {
   border-radius: 0.5rem;
   font-size: 0.875rem;
 }
-:global(.dark) .error-msg {
-  background-color: #7f1d1d;
-  border-color: #b91c1c;
-  color: #fecaca;
-}
 
 .submit-btn {
   width: 100%;
   padding: 0.875rem;
   font-size: 1.125rem;
-  margin-bottom: 1rem;
   border-radius: 0.5rem;
+  cursor: pointer;
 }
-
-.signup-row { text-align: center; }
-.signup-text { color: #4b5563; font-size: 0.9rem; }
-:global(.dark) .signup-text { color: #9ca3af; }
-.signup-link { color: #f97316; font-weight: 600; text-decoration: none; }
-.signup-link:hover { color: #ea580c; }
-
-.demo-box {
-  margin-top: 2rem;
-  padding: 1rem;
-  background-color: #eff6ff;
-  border-radius: 0.5rem;
-}
-:global(.dark) .demo-box { background-color: #1e3a8a; }
-.demo-title { font-weight: 600; color: #1e40af; margin-bottom: 0.5rem; }
-:global(.dark) .demo-title { color: #bfdbfe; }
-.demo-info { font-size: 0.875rem; color: #1e40af; line-height: 1.6; }
-:global(.dark) .demo-info { color: #bfdbfe; }
+.submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
 .back-link-wrap { text-align: center; margin-top: 1.5rem; }
 .back-link { color: #d1d5db; text-decoration: none; transition: color 0.3s; font-size: 0.9rem; }

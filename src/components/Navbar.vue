@@ -141,8 +141,8 @@ const toggleDarkMode = () => {
   store.toggleDarkMode()
 }
 
-const logout = () => {
-  store.logout()
+const logout = async () => {
+  await store.logout()
   router.push('/')
 }
 </script>
@@ -404,4 +404,19 @@ const logout = () => {
 .mobile-lang-btn--active { background: #fff7ed; border-color: #f97316; color: #f97316; }
 :global(.dark) .mobile-lang-btn { background: #1f2937; border-color: rgba(255,255,255,0.1); }
 :global(.dark) .mobile-lang-btn--active { background: rgba(249,115,22,0.12); }
+
+/* ===== 480px Mobile ===== */
+@media (max-width: 480px) {
+  .navbar-inner { height: 3.5rem; }
+  .logo-icon { width: 2rem; height: 2rem; font-size: 1rem; }
+  /* hide lang label, keep flag + chevron only */
+  .lang-label { display: none; }
+  .lang-ctrl-btn { padding: 0.4rem; gap: 0.25rem; }
+  .ctrl-btn { padding: 0.4rem; }
+  .navbar-right { gap: 0.4rem; }
+  /* login btn smaller */
+  .btn-primary { padding: 0.4rem 0.85rem; font-size: 0.82rem; }
+  .btn-user { padding: 0.4rem 0.75rem; font-size: 0.82rem; }
+  .mobile-link { font-size: 0.95rem; }
+}
 </style>

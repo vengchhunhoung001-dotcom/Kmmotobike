@@ -157,7 +157,6 @@ const store = useAppStore()
 const featuredProducts = [
   { id: 1, name: 'Premium Engine Kit', description: '高性能发动机改装套件', price: 299, originalPrice: 399, discount: 25, icon: '⚙️' },
   { id: 2, name: 'Advanced Suspension', description: '专业级悬挂系统', price: 499, originalPrice: 699, discount: 29, icon: '🏍️' },
-  { id: 3, name: 'Racing Exhaust', description: '竞赛级排气管', price: 199, originalPrice: 299, discount: 33, icon: '💨' }
 ]
 
 const addToCart = (product) => {
@@ -252,8 +251,7 @@ const addToCart = (product) => {
 
 /* Products */
 .products-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
-@media (min-width: 768px) { .products-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1024px) { .products-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 640px) { .products-grid { grid-template-columns: repeat(2, 1fr); } }
 
 .product-card { background: transparent; }
 .product-image {
@@ -344,4 +342,32 @@ const addToCart = (product) => {
 :global(.dark) .contact-desc { color: #9ca3af; }
 
 .text-center { text-align: center; }
+
+/* ===== 480px Mobile ===== */
+@media (max-width: 480px) {
+  .hero { height: auto; min-height: 100svh; padding: 5rem 0 3rem; }
+  .hero-title { font-size: 2rem; margin-bottom: 1rem; }
+  .hero-subtitle { font-size: 1rem; }
+  .hero-btn { font-size: 1rem; padding: 0.65rem 1.5rem; }
+  .blob { width: 10rem; height: 10rem; filter: blur(40px); }
+
+  .section { padding: 3rem 0; }
+  .section-header { margin-bottom: 2rem; }
+  .section-title { font-size: 1.6rem; }
+  .section-cta { margin-top: 2rem; }
+
+  .products-grid { gap: 1.25rem; }
+  .product-image { height: 12rem; }
+  .product-icon { font-size: 3rem; }
+  .product-name { font-size: 1rem; }
+
+  .about-grid { gap: 2rem; }
+  .about-desc { font-size: 1rem; }
+  .stats-grid { gap: 0.75rem; }
+  .stat-card { padding: 1.25rem; }
+  .stat-number { font-size: 1.5rem; }
+
+  .contact-grid { gap: 1rem; }
+  .contact-icon { width: 3rem; height: 3rem; }
+}
 </style>

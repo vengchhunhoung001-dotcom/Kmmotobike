@@ -220,8 +220,7 @@
 
         <!-- 大图（支持点击缩略图放大） -->
         <div class="detail-main-img" @click="openLightbox(activeThumb)">
-          <img v-if="detailProduct.thumbs && detailProduct.thumbs.length > 0" :src="detailProduct.thumbs[activeThumb] || detailProduct.mainImg" class="detail-real-img lightbox-trigger-img" alt="product" />
-          <img v-else-if="detailProduct.mainImg" :src="detailProduct.mainImg" class="detail-real-img lightbox-trigger-img" alt="product" />
+          <img v-if="allImages.length > 0" :src="allImages[activeThumb]" class="detail-real-img lightbox-trigger-img" alt="product" />
           <span v-else class="detail-main-icon">{{ detailProduct.icon }}</span>
           <div class="zoom-hint">🔍 点击放大</div>
         </div>
@@ -229,19 +228,14 @@
         <!-- 小图列表 -->
         <div class="detail-thumbs-wrap">
           <div class="detail-thumbs" ref="thumbsRef">
-            <template v-if="detailProduct.thumbs && detailProduct.thumbs.length > 0">
+            <template v-if="allImages.length > 0">
               <div
-                v-for="(thumb, idx) in detailProduct.thumbs"
+                v-for="(img, idx) in allImages"
                 :key="idx"
                 :class="['detail-thumb', activeThumb === idx ? 'thumb-active' : '']"
                 @click="activeThumb = idx"
               >
-                <img :src="thumb" class="thumb-real-img" alt="" />
-              </div>
-            </template>
-            <template v-else-if="detailProduct.mainImg">
-              <div :class="['detail-thumb', 'thumb-active']">
-                <img :src="detailProduct.mainImg" class="thumb-real-img" alt="" />
+                <img :src="img" class="thumb-real-img" alt="" />
               </div>
             </template>
             <template v-else>
@@ -378,6 +372,14 @@ const detailThumbs = computed(() => {
   return [icon, icon, icon, icon, icon, icon]
 })
 
+const allImages = computed(() => {
+  if (!detailProduct.value) return []
+  const imgs = []
+  if (detailProduct.value.mainImg) imgs.push(detailProduct.value.mainImg)
+  if (detailProduct.value.thumbs?.length) imgs.push(...detailProduct.value.thumbs)
+  return imgs
+})
+
 const filteredProducts = computed(() => {
   let products = store.products
   
@@ -466,13 +468,9 @@ const lightboxImages = ref([])
 const lightboxIndex = ref(0)
 
 const openLightbox = (idx) => {
-  if (!detailProduct.value) return
-  const imgs = detailProduct.value.thumbs && detailProduct.value.thumbs.length > 0
-    ? detailProduct.value.thumbs
-    : detailProduct.value.mainImg ? [detailProduct.value.mainImg] : []
-  if (imgs.length === 0) return
-  lightboxImages.value = imgs
-  lightboxIndex.value = idx < imgs.length ? idx : 0
+  if (!detailProduct.value || allImages.value.length === 0) return
+  lightboxImages.value = allImages.value
+  lightboxIndex.value = idx < allImages.value.length ? idx : 0
   showLightbox.value = true
 }
 const closeLightbox = () => { showLightbox.value = false }
@@ -665,11 +663,9 @@ const showToast = (msg) => {
 .products-content { flex: 1; }
 .grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
 }
-@media (min-width: 640px) { .grid { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1024px) { .grid { grid-template-columns: repeat(3, 1fr); } }
 
 /* Product Card */
 .pcard { cursor: pointer; }
@@ -1213,4 +1209,41 @@ const showToast = (msg) => {
 .btn-outline-gray:hover { background: #f3f4f6; }
 :global(.dark) .btn-outline-gray { border-color: #4b5563; color: #e5e7eb; }
 :global(.dark) .btn-outline-gray:hover { background: #374151; }
+
+/* ===== 480px Mobile ===== */
+@media (max-width: 480px) {
+  .page-header { padding: 2.5rem 0; }
+  .page-title { font-size: 1.6rem; }
+  .page-subtitle { font-size: 1rem; }
+
+  .products-layout { padding-top: 1.5rem; padding-bottom: 1.5rem; gap: 1.25rem; }
+
+  .sidebar-card { padding: 1rem; }
+  .filter-title { font-size: 1rem; margin-bottom: 1rem; }
+  .filter-group { margin-bottom: 1.25rem; }
+
+  .cart-trigger-btn { font-size: 0.9rem; padding: 0.65rem 0.85rem; }
+
+  .grid { gap: 1rem;  grid-template-columns: repeat(2, 1fr); }
+  .pcard-img { height: 12rem; }
+  .pcard-name { font-size: 1rem; }
+  .price-current { font-size: 1.2rem; }
+
+  /* Detail modal */
+  .modal-detail { border-radius: 0.75rem; max-height: 95vh; }
+  .detail-main-img { height: 200px; }
+  .detail-name { font-size: 1.1rem; }
+  .detail-price { font-size: 1.4rem; }
+  .detail-info { padding: 1rem; }
+  .detail-footer-info { flex-direction: column; gap: 0.5rem; padding: 0.75rem 1rem 1rem; }
+
+  /* Cart modal */
+  .modal-md { max-width: 100%; border-radius: 0.75rem; }
+  .cart-item { gap: 0.5rem; }
+  .cart-item-icon { font-size: 1.5rem; }
+
+  /* Lightbox */
+  .lightbox-arrow { width: 36px; height: 36px; font-size: 1.4rem; }
+  .lightbox-img { max-width: 95vw; }
+}
 </style>

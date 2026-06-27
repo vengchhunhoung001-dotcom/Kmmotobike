@@ -8,8 +8,27 @@ export const useAppStore = defineStore('app', () => {
   // =============================================
   const language = ref(localStorage.getItem('language') || 'zh')
   const darkMode = ref(localStorage.getItem('darkMode') === 'true')
-  const isLoggedIn = ref(localStorage.getItem('isLoggedIn') === 'true')
-  const user = ref(localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null)
+  const isLoggedIn = ref(false)
+  const user = ref(null)
+
+  // 初始化时从 Supabase 恢复 session
+  supabase.auth.getSession().then(({ data }) => {
+    if (data.session) {
+      isLoggedIn.value = true
+      user.value = { email: data.session.user.email, role: 'admin' }
+    }
+  })
+
+  // 监听 Supabase auth 状态变化（跨 tab 同步）
+  supabase.auth.onAuthStateChange((_event, session) => {
+    if (session) {
+      isLoggedIn.value = true
+      user.value = { email: session.user.email, role: 'admin' }
+    } else {
+      isLoggedIn.value = false
+      user.value = null
+    }
+  })
 
   // 购物车（只存本地，不需要数据库）
   const cart = ref(JSON.parse(localStorage.getItem('cart')) || [])
@@ -40,19 +59,23 @@ export const useAppStore = defineStore('app', () => {
     }
   }
 
-  const login = (userData) => {
-    isLoggedIn.value = true
-    user.value = userData
-    localStorage.setItem('isLoggedIn', 'true')
-    localStorage.setItem('user', JSON.stringify(userData))
+  // login: 调 Supabase Auth，返回 { error }
+  const login = async (email, password) => {
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password })
+    if (!error && data.session) {
+      isLoggedIn.value = true
+      user.value = { email: data.session.user.email, role: 'admin' }
+    }
+    return { error }
   }
 
-  const logout = () => {
+  // logout
+  const logout = async () => {
+    await supabase.auth.signOut()
     isLoggedIn.value = false
     user.value = null
-    localStorage.setItem('isLoggedIn', 'false')
-    localStorage.removeItem('user')
   }
+
 
   // =============================================
   // 购物车（本地）

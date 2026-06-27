@@ -21,6 +21,20 @@ body {
 }
 
 /* =====================
+   Khmer Font (Nokora + Noto Sans Khmer fallback)
+   ===================== */
+html[lang="km"] body,
+html[lang="km"] button,
+html[lang="km"] input,
+html[lang="km"] textarea,
+html[lang="km"] select {
+  font-family: "Nokora", "Noto Sans Khmer", sans-serif;
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
+  line-height: 1.8;
+}
+
+/* =====================
    Dark Mode
    ===================== */
 .dark body {

@@ -297,4 +297,40 @@ const team = [
   transition: background 0.2s;
 }
 .btn-cta-outline:hover { background: rgba(255,255,255,0.15); }
+
+/* ===== 480px Mobile ===== */
+@media (max-width: 480px) {
+  .about-hero { padding: 3rem 0; }
+  .hero-title { font-size: 1.6rem; }
+  .hero-sub { font-size: 1rem; }
+
+  .section { padding: 3rem 0; }
+  .section-alt { padding: 3rem 0; }
+  .section-title { font-size: 1.4rem; }
+  .section-para { font-size: 0.9rem; }
+
+  .two-col { gap: 2rem; }
+  .stats-grid-2 { gap: 0.75rem; }
+  .stat-box { padding: 1.25rem 0.85rem; }
+  .stat-num { font-size: 1.7rem; }
+
+  .mvv-grid { gap: 1rem; }
+  .mvv-card { padding: 1.5rem 1.1rem; }
+  .mvv-icon { font-size: 2rem; }
+
+  .team-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .team-card { padding: 1.25rem 0.85rem; }
+  .team-avatar { font-size: 2.2rem; }
+  .team-name { font-size: 0.9rem; }
+  .team-desc { font-size: 0.78rem; }
+
+  .contact-grid { gap: 1rem; }
+  .contact-card { padding: 1.5rem 1rem; }
+  .contact-icon { font-size: 2rem; }
+
+  .cta-section { padding: 2.5rem 0; }
+  .cta-title { font-size: 1.5rem; }
+  .cta-sub { font-size: 0.95rem; }
+  .btn-cta-primary, .btn-cta-outline { padding: 0.65rem 1.5rem; font-size: 0.9rem; }
+}
 </style>

@@ -1,18 +1,19 @@
 <template>
   <footer class="footer">
     <div class="container footer-inner">
-      <div class="footer-grid">
-        <!-- Brand -->
-        <div>
-          <div class="footer-brand">
-            <div class="footer-logo-icon">⚙</div>
-            <span class="footer-brand-name">MotoShop</span>
-          </div>
-          <p class="footer-desc">{{ t('home.aboutText') }}</p>
+      <!-- Brand Row -->
+      <div class="footer-brand-row">
+        <div class="footer-brand">
+          <div class="footer-logo-icon">⚙</div>
+          <span class="footer-brand-name">MotoShop</span>
         </div>
+        <p class="footer-desc">{{ t('home.aboutText') }}</p>
+      </div>
 
+      <!-- Links Row: About + Contact side by side -->
+      <div class="footer-links-row">
         <!-- About Links -->
-        <div>
+        <div class="footer-col">
           <h3 class="footer-heading">{{ t('footer.about') }}</h3>
           <ul class="footer-links">
             <li><a href="#">Company</a></li>
@@ -23,23 +24,13 @@
         </div>
 
         <!-- Contact Links -->
-        <div>
+        <div class="footer-col">
           <h3 class="footer-heading">{{ t('footer.contact') }}</h3>
           <ul class="footer-links">
             <li><a href="#">Help Center</a></li>
             <li><a href="#">Support</a></li>
             <li><a href="#">Shipping Info</a></li>
             <li><a href="#">Returns</a></li>
-          </ul>
-        </div>
-
-        <!-- Legal Links -->
-        <div>
-          <h3 class="footer-heading">Legal</h3>
-          <ul class="footer-links">
-            <li><a href="#">{{ t('footer.privacy') }}</a></li>
-            <li><a href="#">{{ t('footer.terms') }}</a></li>
-            <li><a href="#">Cookies</a></li>
           </ul>
         </div>
       </div>
@@ -90,21 +81,15 @@ const store = useAppStore()
   padding-bottom: 4rem;
 }
 
-.footer-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
+/* Brand row — full width at top */
+.footer-brand-row {
   margin-bottom: 2rem;
 }
-@media (min-width: 768px) {
-  .footer-grid { grid-template-columns: repeat(4, 1fr); }
-}
-
 .footer-brand {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 .footer-logo-icon {
   width: 2.5rem;
@@ -117,8 +102,27 @@ const store = useAppStore()
   font-weight: 700;
 }
 .footer-brand-name { font-size: 1.25rem; font-weight: 700; }
+.footer-desc {
+  color: #9ca3af;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  max-width: 36rem;
+}
 
-.footer-desc { color: #9ca3af; font-size: 0.875rem; line-height: 1.6; }
+@media (max-width: 480px) {
+  .footer-brand-row { text-align: center; }
+  .footer-brand { justify-content: center; }
+  .footer-desc { margin: 0 auto; }
+}
+
+/* Links row — About + Contact side by side */
+.footer-links-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+.footer-col {}
 
 .footer-heading { font-weight: 700; margin-bottom: 1rem; }
 
