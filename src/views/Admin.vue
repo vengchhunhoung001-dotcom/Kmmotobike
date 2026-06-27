@@ -437,7 +437,7 @@ const uploadImageToStorage = async (file, folder = 'products') => {
   const fileName = `${folder}/${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`
   const { error } = await supabase.storage
     .from('product-images')
-    .upload(fileName, file, { contentType: file.type, upsert: false })
+    .upload(fileName, file, { contentType: file.type, upsert: true })
   if (error) throw error
   const { data } = supabase.storage.from('product-images').getPublicUrl(fileName)
   return data.publicUrl
