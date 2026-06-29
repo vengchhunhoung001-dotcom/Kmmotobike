@@ -10,6 +10,34 @@
 
     <!-- Main Content -->
     <div class="container products-layout">
+      <!-- Mobile Filter Bar (480px 以下) -->
+      <div class="mobile-topbar">
+        <div class="mobile-search-box" @click="openFilterDrawer">
+          <svg class="mobile-search-icon" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+          <span :class="['mobile-search-text', searchKeyword ? 'has-value' : '']">
+            {{ searchKeyword || '搜索产品名称...' }}
+          </span>
+          <span v-if="searchKeyword" class="mobile-search-clear" @click.stop="searchKeyword = ''">✕</span>
+        </div>
+        <div class="mobile-chip-group">
+          <button class="mobile-chip mobile-chip-filter" @click="openFilterDrawer">
+            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 4h18M7 9h10M11 14h2"/>
+            </svg>
+            <span>筛选</span>
+            <span v-if="activeFilterCount > 0" class="chip-badge">{{ activeFilterCount }}</span>
+          </button>
+          <button class="mobile-chip mobile-chip-cart" @click="openCart">
+            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+            </svg>
+            <span v-if="store.cartCount > 0" class="chip-badge chip-badge-cart">{{ store.cartCount }}</span>
+          </button>
+        </div>
+      </div>
+
       <!-- Sidebar -->
       <aside class="sidebar">
         <div class="sidebar-card">
@@ -140,6 +168,62 @@
         </div>
       </div>
     </div>
+
+    <!-- ===== Filter Drawer (Mobile) ===== -->
+    <transition name="drawer-fade">
+      <div v-if="showFilterDrawer" class="filter-drawer-overlay" @click.self="closeFilterDrawer"></div>
+    </transition>
+    <transition name="drawer-slide">
+      <div v-if="showFilterDrawer" class="filter-drawer">
+        <div class="drawer-grip"></div>
+        <div class="drawer-head">
+          <h3 class="drawer-title">搜索 &amp; 筛选</h3>
+          <div class="drawer-head-actions">
+            <button v-if="activeFilterCount > 0" class="drawer-reset-btn" @click="resetFilters">全部重置</button>
+            <button class="drawer-close-btn" @click="closeFilterDrawer">✕</button>
+          </div>
+        </div>
+        <div class="drawer-body">
+          <div class="drawer-section">
+            <p class="drawer-section-label">🔍 搜索</p>
+            <div class="search-group">
+              <input v-model="searchKeyword" type="text" class="search-input" placeholder="搜索产品名字..." />
+              <span v-if="searchKeyword" class="search-clear" @click="searchKeyword = ''">✕</span>
+            </div>
+          </div>
+          <div class="drawer-section">
+            <p class="drawer-section-label">{{ t('products.category') }}</p>
+            <div class="drawer-chips">
+              <button :class="['drawer-chip', selectedCategory === '' ? 'drawer-chip-active' : '']" @click="selectedCategory = ''">{{ t('products.allCategories') }}</button>
+              <button :class="['drawer-chip', selectedCategory === 'engine' ? 'drawer-chip-active' : '']" @click="selectedCategory = 'engine'">{{ t('products.engineParts') }}</button>
+              <button :class="['drawer-chip', selectedCategory === 'suspension' ? 'drawer-chip-active' : '']" @click="selectedCategory = 'suspension'">{{ t('products.suspension') }}</button>
+              <button :class="['drawer-chip', selectedCategory === 'brakes' ? 'drawer-chip-active' : '']" @click="selectedCategory = 'brakes'">{{ t('products.brakes') }}</button>
+              <button :class="['drawer-chip', selectedCategory === 'wheels' ? 'drawer-chip-active' : '']" @click="selectedCategory = 'wheels'">{{ t('products.wheels') }}</button>
+              <button :class="['drawer-chip', selectedCategory === 'accessories' ? 'drawer-chip-active' : '']" @click="selectedCategory = 'accessories'">{{ t('products.accessories') }}</button>
+            </div>
+          </div>
+          <div class="drawer-section">
+            <p class="drawer-section-label">{{ t('products.price') }}<span class="drawer-price-tag">${{ maxPrice }}</span></p>
+            <input type="range" v-model="maxPrice" min="0" max="1000" class="drawer-range" />
+            <div class="price-range-labels"><span>$0</span><span class="price-max">${{ maxPrice }}</span></div>
+          </div>
+          <div class="drawer-section">
+            <p class="drawer-section-label">{{ t('products.sort') }}</p>
+            <div class="drawer-chips">
+              <button :class="['drawer-chip', sortBy === 'popular' ? 'drawer-chip-active' : '']" @click="sortBy = 'popular'">Popular</button>
+              <button :class="['drawer-chip', sortBy === 'price-low' ? 'drawer-chip-active' : '']" @click="sortBy = 'price-low'">价格 ↑</button>
+              <button :class="['drawer-chip', sortBy === 'price-high' ? 'drawer-chip-active' : '']" @click="sortBy = 'price-high'">价格 ↓</button>
+              <button :class="['drawer-chip', sortBy === 'newest' ? 'drawer-chip-active' : '']" @click="sortBy = 'newest'">最新</button>
+            </div>
+          </div>
+        </div>
+        <div class="drawer-footer">
+          <button class="drawer-apply-btn" @click="closeFilterDrawer">
+            查看 {{ filteredProducts.length }} 件产品
+          </button>
+        </div>
+      </div>
+    </transition>
 
     <!-- ===== 购物车弹窗 ===== -->
     <div v-if="showCart" class="modal-overlay" @click.self="closeCart">
@@ -500,6 +584,25 @@ const copyLink = () => {
   navigator.clipboard.writeText(url).catch(() => {})
   linkCopied.value = true
 }
+
+// Mobile filter drawer
+const showFilterDrawer = ref(false)
+const openFilterDrawer = () => { showFilterDrawer.value = true }
+const closeFilterDrawer = () => { showFilterDrawer.value = false }
+const resetFilters = () => {
+  searchKeyword.value = ''
+  selectedCategory.value = ''
+  maxPrice.value = 1000
+  sortBy.value = 'popular'
+}
+const activeFilterCount = computed(() => {
+  let c = 0
+  if (searchKeyword.value) c++
+  if (selectedCategory.value) c++
+  if (maxPrice.value < 1000) c++
+  if (sortBy.value !== 'popular') c++
+  return c
+})
 
 const showToast = (msg) => {
   toast.value = msg
@@ -1245,5 +1348,200 @@ const showToast = (msg) => {
   /* Lightbox */
   .lightbox-arrow { width: 36px; height: 36px; font-size: 1.4rem; }
   .lightbox-img { max-width: 95vw; }
+  /* Hide desktop sidebar, show mobile topbar */
+  .sidebar { display: none !important; }
+  .mobile-topbar { display: flex; }
 }
+
+/* ===== Mobile Top Bar ===== */
+.mobile-topbar {
+  display: none;
+  width: 100%;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.mobile-search-box {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: #f9fafb;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 0.875rem;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+:global(.dark) .mobile-search-box { background: #1f2937; border-color: #374151; }
+.mobile-search-box:hover { border-color: #f97316; box-shadow: 0 0 0 3px rgba(249,115,22,0.08); }
+.mobile-search-icon { color: #9ca3af; flex-shrink: 0; }
+.mobile-search-text { flex: 1; font-size: 0.9rem; color: #9ca3af; }
+.mobile-search-text.has-value { color: #111827; font-weight: 500; }
+:global(.dark) .mobile-search-text.has-value { color: #f3f4f6; }
+.mobile-search-clear { color: #9ca3af; font-size: 0.8rem; font-weight: 700; cursor: pointer; padding: 0 0.15rem; }
+.mobile-chip-group { display: flex; gap: 0.5rem; }
+.mobile-chip {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.65rem 0;
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s;
+}
+.mobile-chip-filter { background: #f3f4f6; color: #374151; flex: 2; }
+:global(.dark) .mobile-chip-filter { background: #1f2937; color: #d1d5db; }
+.mobile-chip-filter:hover { background: #e5e7eb; }
+:global(.dark) .mobile-chip-filter:hover { background: #374151; }
+.mobile-chip-cart {
+  background: linear-gradient(135deg, #f97316, #eab308);
+  color: #fff;
+  flex: 1;
+  min-width: 52px;
+  box-shadow: 0 2px 8px rgba(249,115,22,0.3);
+}
+.chip-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: #ef4444;
+  color: #fff;
+  border-radius: 9999px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  min-width: 15px;
+  height: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid #fff;
+  padding: 0 2px;
+}
+
+/* ===== Filter Drawer ===== */
+.filter-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 1500;
+  backdrop-filter: blur(1px);
+}
+.filter-drawer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1501;
+  background: #fff;
+  border-radius: 1.5rem 1.5rem 0 0;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 -8px 40px rgba(0,0,0,0.2);
+  overflow: hidden;
+}
+:global(.dark) .filter-drawer { background: #111827; }
+.drawer-grip {
+  width: 36px;
+  height: 3.5px;
+  background: #d1d5db;
+  border-radius: 9999px;
+  margin: 0.85rem auto 0;
+  flex-shrink: 0;
+}
+:global(.dark) .drawer-grip { background: #374151; }
+.drawer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.25rem 0.875rem;
+  border-bottom: 1px solid #f3f4f6;
+  flex-shrink: 0;
+}
+:global(.dark) .drawer-head { border-color: #1f2937; }
+.drawer-title { font-size: 1.05rem; font-weight: 700; }
+.drawer-head-actions { display: flex; align-items: center; gap: 0.65rem; }
+.drawer-reset-btn { background: none; border: none; color: #f97316; font-size: 0.82rem; font-weight: 600; cursor: pointer; }
+.drawer-close-btn {
+  background: #f3f4f6;
+  border: none;
+  color: #374151;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+:global(.dark) .drawer-close-btn { background: #374151; color: #f9fafb; }
+.drawer-close-btn:hover { background: #e5e7eb; }
+:global(.dark) .drawer-close-btn:hover { background: #4b5563; }
+.drawer-body { flex: 1; overflow-y: auto; }
+.drawer-section {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid #f3f4f6;
+}
+:global(.dark) .drawer-section { border-color: #1f2937; }
+.drawer-section:last-child { border-bottom: none; }
+.drawer-section-label { font-size: 0.85rem; font-weight: 700; color: #374151; margin-bottom: 0.65rem; }
+:global(.dark) .drawer-section-label { color: #d1d5db; }
+.drawer-price-tag { color: #f97316; font-weight: 700; margin-left: 0.5rem; }
+.drawer-range { width: 100%; accent-color: #f97316; margin: 0.3rem 0; }
+.drawer-chips { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+.drawer-chip {
+  padding: 0.38rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  border: 1.5px solid #e5e7eb;
+  background: #fff;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+:global(.dark) .drawer-chip { background: #1f2937; border-color: #374151; color: #d1d5db; }
+.drawer-chip:hover { border-color: #f97316; color: #f97316; }
+.drawer-chip-active {
+  background: linear-gradient(135deg, #f97316, #eab308) !important;
+  border-color: transparent !important;
+  color: #fff !important;
+  font-weight: 600 !important;
+}
+.drawer-footer {
+  padding: 0.875rem 1.25rem;
+  border-top: 1px solid #f3f4f6;
+  flex-shrink: 0;
+  background: #fff;
+}
+:global(.dark) .drawer-footer { border-color: #1f2937; background: #111827; }
+.drawer-apply-btn {
+  width: 100%;
+  padding: 0.875rem;
+  background: linear-gradient(to right, #f97316, #eab308);
+  color: #fff;
+  border: none;
+  border-radius: 0.875rem;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(249,115,22,0.3);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.drawer-apply-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(249,115,22,0.4); }
+.drawer-apply-btn:active { transform: translateY(0); }
+
+/* Drawer transitions */
+.drawer-fade-enter-active, .drawer-fade-leave-active { transition: opacity 0.25s ease; }
+.drawer-fade-enter-from, .drawer-fade-leave-to { opacity: 0; }
+.drawer-slide-enter-active { transition: transform 0.32s cubic-bezier(0.32, 0.72, 0, 1); }
+.drawer-slide-leave-active { transition: transform 0.22s ease-in; }
+.drawer-slide-enter-from, .drawer-slide-leave-to { transform: translateY(100%); }
 </style>

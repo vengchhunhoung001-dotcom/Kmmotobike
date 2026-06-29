@@ -224,6 +224,16 @@
             <input v-model.number="productForm.stock" class="form-input" type="number" placeholder="0" />
           </div>
 
+          <div class="form-group">
+            <label class="form-label">产品描述</label>
+            <textarea
+              v-model="productForm.description"
+              class="form-input form-textarea"
+              placeholder="请输入产品描述（将显示在产品卡片和详情页）"
+              rows="3"
+            ></textarea>
+          </div>
+
           <!-- 大图上传 -->
           <div class="form-group">
             <label class="form-label">主图（大图）</label>
@@ -427,7 +437,7 @@ const editingProductIdx = ref(-1)
 const productError = ref('')
 const mainImgInput = ref(null)
 const thumbImgInput = ref(null)
-const productForm = ref({ name: '', category: 'engine', price: 0, stock: 0, mainImg: '', thumbs: [] })
+const productForm = ref({ name: '', description: '', category: 'engine', price: 0, stock: 0, mainImg: '', thumbs: [] })
 const uploadingMain = ref(false)
 const uploadingThumb = ref(false)
 
@@ -445,13 +455,13 @@ const uploadImageToStorage = async (file, folder = 'products') => {
 
 const openAddProduct = () => {
   editingProduct.value = null
-  productForm.value = { name: '', category: 'engine', price: 0, stock: 0, mainImg: '', thumbs: [] }
+  productForm.value = { name: '', description: '', category: 'engine', price: 0, stock: 0, mainImg: '', thumbs: [] }
   productError.value = ''
   showProductModal.value = true
 }
 const openEditProduct = (p) => {
   editingProduct.value = p
-  productForm.value = { name: p.name, category: p.category, price: p.price, stock: p.stock, mainImg: p.mainImg || '', thumbs: [...(p.thumbs || [])] }
+  productForm.value = { name: p.name, description: p.description || '', category: p.category, price: p.price, stock: p.stock, mainImg: p.mainImg || '', thumbs: [...(p.thumbs || [])] }
   productError.value = ''
   showProductModal.value = true
 }
@@ -499,6 +509,7 @@ const saveProduct = () => {
   if (editingProduct.value) {
     store.updateProduct(editingProduct.value.id, {
       name: productForm.value.name,
+      description: productForm.value.description,
       category: productForm.value.category,
       price: productForm.value.price,
       stock: productForm.value.stock,
@@ -509,6 +520,7 @@ const saveProduct = () => {
   } else {
     store.addProduct({
       name: productForm.value.name,
+      description: productForm.value.description,
       category: productForm.value.category,
       price: productForm.value.price,
       stock: productForm.value.stock,
@@ -777,6 +789,7 @@ const showToast = (msg) => {
 }
 .form-input:focus { border-color: #f97316; box-shadow: 0 0 0 3px rgba(249,115,22,0.1); }
 :global(.dark) .form-input { background: #374151; border-color: #4b5563; color: #f9fafb; }
+.form-textarea { resize: vertical; min-height: 80px; line-height: 1.5; }
 .form-error { color: #ef4444; font-size: 0.85rem; margin-top: 0.5rem; }
 
 /* Image upload */
