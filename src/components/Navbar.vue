@@ -3,10 +3,11 @@
     <div class="navbar-inner container">
       <!-- Logo -->
       <router-link to="/" class="navbar-logo">
-        <div class="logo-icon">
-          <span>⚙</span>
-        </div>
-        <span class="logo-text">MotoShop</span>
+        <img src="/logo-color.png" alt="KM Motobike Logo" class="navbar-logo-img" />
+        <span class="logo-text">
+          <span class="text-main"></span>
+          <span class="text-sub">Motobike</span>
+        </span>
       </router-link>
 
       <!-- Center Nav -->
@@ -38,7 +39,7 @@
             >
               <span :class="['fi', lang.flag]" class="nav-flag"></span>
               <span class="lang-item-text">{{ lang.label }}</span>
-              <svg v-if="currentLang === lang.value" width="14" height="14" fill="#f97316" viewBox="0 0 20 20" class="lang-check">
+              <svg v-if="currentLang === lang.value" width="14" height="14" fill="#a8690a" viewBox="0 0 20 20" class="lang-check">
                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
               </svg>
             </button>
@@ -47,10 +48,10 @@
 
         <!-- Dark Mode Toggle -->
         <button @click="toggleDarkMode" class="ctrl-btn icon-btn">
-          <svg v-if="darkMode" width="20" height="20" fill="currentColor" viewBox="0 0 20 20" style="color:#eab308">
+          <svg v-if="darkMode" width="20" height="20" fill="currentColor" viewBox="0 0 20 20" style="color:#f2b705">
             <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
           </svg>
-          <svg v-else width="20" height="20" fill="currentColor" viewBox="0 0 20 20" style="color:#f97316">
+          <svg v-else width="20" height="20" fill="currentColor" viewBox="0 0 20 20" style="color:#a8690a">
             <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.707.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zm5.657-9.193a1 1 0 00-1.414 0l-.707.707A1 1 0 005.05 6.464l.707-.707a1 1 0 001.414-1.414zM5 17a1 1 0 100-2H4a1 1 0 100 2h1z" clip-rule="evenodd"/>
           </svg>
         </button>
@@ -172,36 +173,50 @@ const logout = async () => {
   height: 4rem;
 }
 
-/* Logo */
+/* Logo 容器 */
 .navbar-logo {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  /* gap: 0.6rem; */
   text-decoration: none;
 }
-.logo-icon {
-  width: 2.5rem;
-  height: 2.5rem;
-  background: linear-gradient(135deg, #f97316, #eab308);
-  border-radius: 0.5rem;
+
+.navbar-logo-img {
+  height: 3rem; /* 稍微放大一点图标 */
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.3s;
+  /* 如果图片自身上方留白多，可以用下行微调位置使其绝对居中 */
+  margin-top: -15px; 
+}
+.navbar-logo:hover .navbar-logo-img { 
+  transform: scale(1.05); 
+}
+/* Logo 文本整体 */
+.logo-text {
+  font-size: 1.35rem; /* 稍微加大字号，与图标体量匹配 */
+  font-weight: 800;   /* 极粗体，更有力量感 */
+  letter-spacing: -0.02em; /* 略微紧凑的字距，更有现代感 */
   display: flex;
   align-items: center;
-  justify-content: center;
-  color: #ffffff;
-  font-weight: 700;
-  font-size: 1.125rem;
-  transition: transform 0.3s;
+  line-height: 1;
 }
-.navbar-logo:hover .logo-icon { transform: scale(1.1); }
-.logo-text {
-  font-size: 1.25rem;
-  font-weight: 700;
-  background: linear-gradient(to right, #f97316, #eab308);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+/* "KM" 颜色：与图标里的黑色 KM 呼应 */
+.logo-text .text-main {
+  color: #1f2937; /* 深灰色，比纯黑更有高级感 */
+  transition: color 0.3s;
 }
-@media (max-width: 640px) { .logo-text { display: none; } }
+:global(.dark) .logo-text .text-main {
+  color: #f3f4f6; /* 暗黑模式下变为白字 */
+}
+
+/* "Motobike" 颜色 */
+.logo-text .text-sub {
+  color: #f2b705;
+  margin-left: 0.2rem;
+  text-shadow: 0 0 12px rgba(242,183,5,0.4);
+}
+@media (max-width: 640px) { .logo-text { display: none; }}
 
 /* Center nav */
 .navbar-center {
@@ -217,9 +232,10 @@ const logout = async () => {
   text-decoration: none;
   transition: color 0.3s;
 }
-.nav-link:hover, .nav-link.router-link-active { color: #f97316; }
+.nav-link:hover, .nav-link.router-link-active { color: #f2b705; }
+.nav-link.router-link-active { font-weight: 700; }
 :global(.dark) .nav-link { color: #d1d5db; }
-:global(.dark) .nav-link:hover { color: #fb923c; }
+:global(.dark) .nav-link:hover, :global(.dark) .nav-link.router-link-active { color: #f2b705; }
 
 /* Right controls */
 .navbar-right {
@@ -270,14 +286,14 @@ const logout = async () => {
   gap: 0.5rem;
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
-  background: linear-gradient(to right, #f97316, #eab308);
-  color: #ffffff;
-  font-weight: 500;
+  background: #f2b705;
+  color: #111827;
+  font-weight: 700;
   border: none;
   cursor: pointer;
-  transition: box-shadow 0.3s;
+  transition: box-shadow 0.3s, background 0.2s;
 }
-.btn-user:hover { box-shadow: 0 4px 12px rgba(249,115,22,0.4); }
+.btn-user:hover { background: #c98f04; box-shadow: 0 4px 16px rgba(242,183,5,0.45); }
 
 /* Dropdown */
 .dropdown-wrap { position: relative; }
@@ -342,8 +358,8 @@ const logout = async () => {
 .lang-dropdown-item:hover { background-color: #f3f4f6; }
 :global(.dark) .lang-dropdown-item:hover { background-color: #374151; }
 
-.lang-dropdown-item--active { background-color: #fff7ed; }
-:global(.dark) .lang-dropdown-item--active { background-color: rgba(249,115,22,0.12); }
+.lang-dropdown-item--active { background-color: #fdf1d6; }
+:global(.dark) .lang-dropdown-item--active { background-color: rgba(242,183,5,0.1); }
 
 .lang-item-text { flex: 1; font-weight: 500; }
 .lang-check { flex-shrink: 0; }
@@ -401,14 +417,14 @@ const logout = async () => {
   transition: background 0.15s;
 }
 .mobile-lang-btn:hover { background: #e5e7eb; }
-.mobile-lang-btn--active { background: #fff7ed; border-color: #f97316; color: #f97316; }
+.mobile-lang-btn--active { background: #fdf1d6; border-color: #f2b705; color: #111827; font-weight: 700; }
 :global(.dark) .mobile-lang-btn { background: #1f2937; border-color: rgba(255,255,255,0.1); }
-:global(.dark) .mobile-lang-btn--active { background: rgba(249,115,22,0.12); }
+:global(.dark) .mobile-lang-btn--active { background: rgba(242,183,5,0.12); border-color: #f2b705; color: #f2b705; }
 
 /* ===== 480px Mobile ===== */
 @media (max-width: 480px) {
   .navbar-inner { height: 3.5rem; }
-  .logo-icon { width: 2rem; height: 2rem; font-size: 1rem; }
+  .navbar-logo-img { height: 2rem; }
   /* hide lang label, keep flag + chevron only */
   .lang-label { display: none; }
   .lang-ctrl-btn { padding: 0.4rem; gap: 0.25rem; }

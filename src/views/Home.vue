@@ -3,14 +3,16 @@
     <!-- Hero Section -->
     <section class="hero">
       <div class="hero-bg"></div>
+      <div class="hero-logo">
+      </div>
       <div class="hero-blobs">
         <div class="blob blob-orange animate-pulse"></div>
         <div class="blob blob-yellow animate-pulse animation-delay-2000"></div>
         <div class="blob blob-blue animate-pulse animation-delay-4000"></div>
       </div>
       <div class="hero-content container">
-        <h1 class="hero-title">{{ t('home.title') }}</h1>
-        <p class="hero-subtitle">{{ t('home.subtitle') }}</p>
+        <!-- <h1 class="hero-title">{{ t('home.title') }}</h1>
+        <p class="hero-subtitle">{{ t('home.subtitle') }}</p> -->
         <div class="hero-actions">
           <router-link to="/products" class="btn-primary hero-btn">{{ t('home.cta') }}</router-link>
         </div>
@@ -68,19 +70,19 @@
             <p class="about-desc">{{ t('home.aboutText') }}</p>
             <ul class="about-list">
               <li class="about-item">
-                <svg width="24" height="24" fill="#f97316" viewBox="0 0 20 20">
+                <svg width="24" height="24" fill="#a8690a" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                 </svg>
                 <span>高品质产品</span>
               </li>
               <li class="about-item">
-                <svg width="24" height="24" fill="#f97316" viewBox="0 0 20 20">
+                <svg width="24" height="24" fill="#a8690a" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                 </svg>
                 <span>专业支持</span>
               </li>
               <li class="about-item">
-                <svg width="24" height="24" fill="#f97316" viewBox="0 0 20 20">
+                <svg width="24" height="24" fill="#a8690a" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                 </svg>
                 <span>全球配送</span>
@@ -116,7 +118,7 @@
         <div class="contact-grid">
           <div class="contact-card">
             <div class="contact-icon">
-              <svg width="32" height="32" fill="white" viewBox="0 0 20 20">
+              <svg width="32" height="32" fill="#111827" viewBox="0 0 20 20">
                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
                 <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
               </svg>
@@ -126,7 +128,7 @@
           </div>
           <div class="contact-card">
             <div class="contact-icon">
-              <svg width="32" height="32" fill="white" viewBox="0 0 20 20">
+              <svg width="32" height="32" fill="#111827" viewBox="0 0 20 20">
                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.8c.164.904.596 2.857 1.379 4.915a1 1 0 01-.244 1.052l-1.829 1.829a13.995 13.995 0 005.093 5.093l1.829-1.829a1 1 0 011.052-.244c2.057.783 4.011 1.215 4.915 1.379a1 1 0 01.8.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
               </svg>
             </div>
@@ -135,7 +137,7 @@
           </div>
           <div class="contact-card">
             <div class="contact-icon">
-              <svg width="32" height="32" fill="white" viewBox="0 0 20 20">
+              <svg width="32" height="32" fill="#111827" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
               </svg>
             </div>
@@ -168,7 +170,8 @@ const addToCart = (product) => {
 /* Hero */
 .hero {
   position: relative;
-  height: 100vh;
+  width: 100%;
+  aspect-ratio: 1024 / 241;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -177,7 +180,33 @@ const addToCart = (product) => {
 .hero-bg {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, #111827 0%, #1f2937 50%, #000000 100%);
+  background-image: linear-gradient(rgb(0 0 0 / 8%), rgb(0 0 0 / 12%)), url(/long-banner2.png);
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+@media (max-width: 768px) {
+  .hero {
+    aspect-ratio: unset;
+    height: 100svh;
+  }
+  .hero-bg {
+    background-image: linear-gradient(rgb(0 0 0 / 0%), rgb(0 0 0 / 76%)), url(/short-banner.jpg);
+    background-size: cover;
+    background-position: center top;
+  }
+}
+.hero-logo {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+.hero-logo-img {
+  height: 80px;
+  width: auto;
+  object-fit: contain;
 }
 .hero-blobs {
   position: absolute;
@@ -193,15 +222,16 @@ const addToCart = (product) => {
   filter: blur(60px);
   mix-blend-mode: multiply;
 }
-.blob-orange { top: 2.5rem; left: 2.5rem; background-color: #f97316; }
-.blob-yellow { top: 10rem; right: 2.5rem; background-color: #facc15; }
-.blob-blue { bottom: -2rem; left: 5rem; background-color: #3b82f6; }
+.blob-orange { top: 2.5rem; left: 2.5rem; background-color: #f2b705; }
+.blob-yellow { top: 10rem; right: 2.5rem; background-color: #d99e0b; }
+.blob-blue { bottom: -2rem; left: 5rem; background-color: #f2b705; }
 
 .hero-content {
   position: relative;
   z-index: 10;
   text-align: center;
   max-width: 56rem;
+  margin-top: 600px;
 }
 .hero-title {
   font-size: clamp(2.5rem, 7vw, 4.5rem);
@@ -235,17 +265,18 @@ const addToCart = (product) => {
 .section { padding: 5rem 0; }
 .section-white { background-color: #ffffff; }
 :global(.dark) .section-white { background-color: #030712; }
-.section-warm { background: linear-gradient(to right, #fff7ed, #fefce8); }
-:global(.dark) .section-warm { background: linear-gradient(to right, #111827, #1f2937); }
+.section-warm { background: linear-gradient(to right, #fdf1d6, #fffff0); }
+:global(.dark) .section-warm { background: linear-gradient(to right, #0f0f0f, #1a1a1a); }
 
 .section-header { text-align: center; margin-bottom: 4rem; }
 .section-title { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; margin-bottom: 1rem; }
 .section-divider {
   width: 6rem;
   height: 0.25rem;
-  background: linear-gradient(to right, #f97316, #eab308);
+  background: linear-gradient(to right, #f2b705, #d99e0b);
   margin: 0 auto;
   border-radius: 9999px;
+  box-shadow: 0 0 10px rgba(242,183,5,0.5);
 }
 .section-cta { text-align: center; margin-top: 3rem; }
 
@@ -270,12 +301,13 @@ const addToCart = (product) => {
   position: absolute;
   top: 1rem;
   right: 1rem;
-  background: linear-gradient(to right, #f97316, #eab308);
-  color: #ffffff;
+  background: #f2b705;
+  color: #111827;
   padding: 0.25rem 0.75rem;
   border-radius: 9999px;
   font-size: 0.875rem;
-  font-weight: 700;
+  font-weight: 800;
+  box-shadow: 0 2px 8px rgba(242,183,5,0.4);
 }
 .product-body { margin-top: 1rem; }
 .product-name { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
@@ -283,21 +315,21 @@ const addToCart = (product) => {
 :global(.dark) .product-desc { color: #9ca3af; }
 .product-footer { display: flex; align-items: center; justify-content: space-between; }
 .product-price { display: flex; align-items: baseline; gap: 0.5rem; }
-.price-current { font-size: 1.5rem; font-weight: 700; color: #f97316; }
+.price-current { font-size: 1.5rem; font-weight: 800; color: #a8690a; }
 .price-original { color: #9ca3af; text-decoration: line-through; font-size: 0.875rem; }
 .cart-btn {
-  background: linear-gradient(to right, #f97316, #eab308);
-  color: #ffffff;
+  background: #f2b705;
+  color: #111827;
   border: none;
   border-radius: 9999px;
   padding: 0.5rem;
   cursor: pointer;
-  transition: transform 0.3s;
+  transition: transform 0.3s, box-shadow 0.3s;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.cart-btn:hover { transform: scale(1.1); }
+.cart-btn:hover { transform: scale(1.12); box-shadow: 0 4px 16px rgba(242,183,5,0.5); }
 
 /* About */
 .about-grid { display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: center; }
@@ -319,7 +351,7 @@ const addToCart = (product) => {
 }
 :global(.dark) .stat-card { background-color: #1f2937; }
 .stat-card:hover { transform: scale(1.05); }
-.stat-number { font-size: 2rem; font-weight: 700; color: #f97316; margin-bottom: 0.5rem; }
+.stat-number { font-size: 2rem; font-weight: 800; color: #a8690a; margin-bottom: 0.5rem; }
 .stat-label { color: #4b5563; font-size: 0.875rem; }
 :global(.dark) .stat-label { color: #9ca3af; }
 
@@ -330,12 +362,13 @@ const addToCart = (product) => {
 .contact-icon {
   width: 4rem;
   height: 4rem;
-  background: linear-gradient(135deg, #f97316, #eab308);
+  background: #f2b705;
   border-radius: 9999px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto 1rem;
+  box-shadow: 0 4px 16px rgba(242,183,5,0.4);
 }
 .contact-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
 .contact-desc { color: #4b5563; }

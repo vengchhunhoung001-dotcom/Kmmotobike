@@ -143,11 +143,13 @@ const team = [
 
 /* Hero */
 .about-hero {
-  background: linear-gradient(135deg, #111827 0%, #1f2937 50%, #000 100%);
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0f0f0f 100%);
   color: #fff;
   padding: 5rem 0;
   text-align: center;
+  border-bottom: 3px solid #f2b705;
 }
+.hero-title span { color: #f2b705; }
 .hero-title { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; margin-bottom: 1rem; }
 .hero-sub { font-size: 1.2rem; color: #d1d5db; }
 
@@ -158,15 +160,16 @@ const team = [
 
 .section-badge {
   display: inline-block;
-  background: linear-gradient(to right, #fff7ed, #fef3c7);
-  color: #ea580c;
+  background: #fdf1d6;
+  color: #111827;
   font-size: 0.85rem;
   font-weight: 700;
   padding: 0.3rem 0.9rem;
   border-radius: 9999px;
   margin-bottom: 1rem;
+  border: 1px solid #f2b705;
 }
-:global(.dark) .section-badge { background: rgba(249,115,22,0.15); color: #fb923c; }
+:global(.dark) .section-badge { background: rgba(242,183,5,0.12); color: #f2b705; border-color: rgba(242,183,5,0.3); }
 .section-badge.center { display: flex; justify-content: center; margin: 0 auto 1rem; width: fit-content; }
 .section-title { font-size: clamp(1.6rem, 3vw, 2.5rem); font-weight: 800; margin-bottom: 1.5rem; }
 .section-title.center { text-align: center; }
@@ -190,15 +193,15 @@ const team = [
   align-items: center;
   gap: 0.4rem;
 }
-.stat-orange { background: linear-gradient(135deg, #fff7ed, #fef3c7); }
-.stat-blue   { background: linear-gradient(135deg, #eff6ff, #dbeafe); }
-.stat-green  { background: linear-gradient(135deg, #f0fdf4, #dcfce7); }
-.stat-purple { background: linear-gradient(135deg, #faf5ff, #ede9fe); }
-:global(.dark) .stat-orange { background: rgba(249,115,22,0.12); }
-:global(.dark) .stat-blue   { background: rgba(59,130,246,0.12); }
-:global(.dark) .stat-green  { background: rgba(34,197,94,0.12); }
-:global(.dark) .stat-purple { background: rgba(168,85,247,0.12); }
-.stat-num { font-size: 2.2rem; font-weight: 800; background: linear-gradient(to right, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.stat-orange { background: linear-gradient(135deg, #fdf1d6, #f6dba0); border: 1px solid rgba(242,183,5,0.3); }
+.stat-blue   { background: linear-gradient(135deg, #fdf1d6, #f6dba0); border: 1px solid rgba(242,183,5,0.3); }
+.stat-green  { background: linear-gradient(135deg, #fdf1d6, #f6dba0); border: 1px solid rgba(242,183,5,0.3); }
+.stat-purple { background: linear-gradient(135deg, #fdf1d6, #f6dba0); border: 1px solid rgba(242,183,5,0.3); }
+:global(.dark) .stat-orange { background: rgba(242,183,5,0.08); border-color: rgba(242,183,5,0.15); }
+:global(.dark) .stat-blue   { background: rgba(242,183,5,0.08); border-color: rgba(242,183,5,0.15); }
+:global(.dark) .stat-green  { background: rgba(242,183,5,0.08); border-color: rgba(242,183,5,0.15); }
+:global(.dark) .stat-purple { background: rgba(242,183,5,0.08); border-color: rgba(242,183,5,0.15); }
+.stat-num { font-size: 2.2rem; font-weight: 800; color: #a8690a; }
 .stat-lbl { font-size: 0.85rem; color: #6b7280; font-weight: 600; }
 :global(.dark) .stat-lbl { color: #9ca3af; }
 
@@ -237,15 +240,16 @@ const team = [
 .team-name { font-weight: 700; font-size: 1.05rem; margin-bottom: 0.25rem; }
 .team-role {
   display: inline-block;
-  background: linear-gradient(to right, #fff7ed, #fef3c7);
-  color: #ea580c;
+  background: #fdf1d6;
+  color: #111827;
   font-size: 0.75rem;
   font-weight: 700;
   padding: 0.2rem 0.65rem;
   border-radius: 9999px;
   margin-bottom: 0.75rem;
+  border: 1px solid #f2b705;
 }
-:global(.dark) .team-role { background: rgba(249,115,22,0.15); color: #fb923c; }
+:global(.dark) .team-role { background: rgba(242,183,5,0.1); color: #f2b705; border-color: rgba(242,183,5,0.3); }
 .team-desc { color: #6b7280; font-size: 0.82rem; line-height: 1.6; }
 :global(.dark) .team-desc { color: #9ca3af; }
 
@@ -262,41 +266,50 @@ const team = [
 :global(.dark) .contact-card { background: #1f2937; }
 .contact-icon { font-size: 2.5rem; display: block; margin-bottom: 0.75rem; }
 .contact-card h4 { font-weight: 700; margin-bottom: 0.5rem; }
-.contact-link { color: #f97316; font-size: 0.95rem; text-decoration: none; font-weight: 500; }
-.contact-link:hover { text-decoration: underline; }
+.contact-link { color: #a8690a; font-size: 0.95rem; text-decoration: none; font-weight: 600; }
+.contact-link:hover { color: #f2b705; text-decoration: underline; }
 
 /* CTA */
 .cta-section {
-  background: linear-gradient(135deg, #f97316, #eab308);
+  background: #f2b705;
   padding: 4rem 0;
   text-align: center;
-  color: #fff;
+  color: #111827;
+  position: relative;
+  overflow: hidden;
+}
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.3) 0%, transparent 70%);
+  pointer-events: none;
 }
 .cta-inner { max-width: 600px; margin: 0 auto; }
 .cta-title { font-size: 2rem; font-weight: 800; margin-bottom: 0.75rem; }
-.cta-sub { font-size: 1.1rem; margin-bottom: 2rem; opacity: 0.9; }
+.cta-sub { font-size: 1.1rem; margin-bottom: 2rem; color: #374151; }
 .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 .btn-cta-primary {
   padding: 0.75rem 2rem;
-  background: #fff;
-  color: #f97316;
+  background: #111827;
+  color: #f2b705;
   border-radius: 9999px;
   font-weight: 700;
   text-decoration: none;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
 }
-.btn-cta-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+.btn-cta-primary:hover { transform: translateY(-2px); background: #000; box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
 .btn-cta-outline {
   padding: 0.75rem 2rem;
   background: transparent;
-  color: #fff;
-  border: 2px solid rgba(255,255,255,0.7);
+  color: #111827;
+  border: 2px solid #111827;
   border-radius: 9999px;
   font-weight: 700;
   text-decoration: none;
-  transition: background 0.2s;
+  transition: background 0.2s, color 0.2s;
 }
-.btn-cta-outline:hover { background: rgba(255,255,255,0.15); }
+.btn-cta-outline:hover { background: rgba(0,0,0,0.08); }
 
 /* ===== 480px Mobile ===== */
 @media (max-width: 480px) {

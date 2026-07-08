@@ -46,10 +46,15 @@ html[lang="km"] select {
    CSS Variables
    ===================== */
 :root {
+  --brand: #f2b705;
+  --brand-dark: #c98f04;
+  --brand-deep: #a8690a;
+  --brand-light: #fdf1d6;
+  --brand-text: #111827;
   --orange-500: #f97316;
   --orange-600: #ea580c;
-  --yellow-500: #eab308;
-  --yellow-600: #ca8a04;
+  --yellow-500: #f2b705;
+  --yellow-600: #c98f04;
   --blue-700: #1d4ed8;
   --blue-900: #1e3a8a;
   --gray-50: #f9fafb;
@@ -65,6 +70,8 @@ html[lang="km"] select {
   --gray-950: #030712;
   --green-500: #22c55e;
   --red-500: #ef4444;
+  --shadow-brand: 0 4px 16px rgba(242,183,5,0.35);
+  --shadow-brand-lg: 0 8px 28px rgba(242,183,5,0.4);
   --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
   --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
   --shadow-2xl: 0 25px 50px -12px rgba(0,0,0,0.25);
@@ -80,13 +87,13 @@ html[lang="km"] select {
    Gradients (utility classes)
    ===================== */
 .gradient-primary {
-  background: linear-gradient(135deg, #FF6B35 0%, #F7B801 100%);
+  background: linear-gradient(135deg, #f2b705 0%, #d99e0b 100%);
 }
 .gradient-secondary {
-  background: linear-gradient(135deg, #004E89 0%, #1C5AA0 100%);
+  background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%);
 }
 .gradient-orange {
-  background: linear-gradient(to right, var(--orange-500), var(--yellow-500));
+  background: linear-gradient(to right, var(--brand), var(--brand-dark));
 }
 
 /* =====================
@@ -94,9 +101,9 @@ html[lang="km"] select {
    ===================== */
 .btn-primary {
   display: inline-block;
-  background: linear-gradient(to right, var(--orange-500), var(--yellow-500));
-  color: #ffffff;
-  font-weight: 600;
+  background: var(--brand);
+  color: var(--brand-text);
+  font-weight: 700;
   padding: 0.5rem 1.5rem;
   border-radius: var(--radius);
   border: none;
@@ -105,18 +112,19 @@ html[lang="km"] select {
   transition: var(--transition);
   transform: scale(1);
   text-align: center;
+  letter-spacing: 0.01em;
 }
 .btn-primary:hover {
-  background: linear-gradient(to right, var(--orange-600), var(--yellow-600));
+  background: var(--brand-dark);
   transform: scale(1.05);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-brand-lg);
 }
 
 .btn-secondary {
   display: inline-block;
-  background: linear-gradient(to right, var(--blue-700), var(--blue-900));
+  background: linear-gradient(to right, #1a1a1a, #333333);
   color: #ffffff;
-  font-weight: 600;
+  font-weight: 700;
   padding: 0.5rem 1.5rem;
   border-radius: var(--radius);
   border: none;
@@ -125,16 +133,17 @@ html[lang="km"] select {
   transition: var(--transition);
 }
 .btn-secondary:hover {
-  background: linear-gradient(to right, #1e40af, #1e3a8a);
+  background: linear-gradient(to right, #000000, #1a1a1a);
+  box-shadow: var(--shadow-lg);
 }
 
 .btn-outline-white {
   display: inline-block;
   padding: 0.75rem 2rem;
   border-radius: var(--radius);
-  border: 2px solid #ffffff;
-  color: #ffffff;
-  font-weight: 600;
+  border: 2px solid var(--brand);
+  color: var(--brand);
+  font-weight: 700;
   background: transparent;
   cursor: pointer;
   transition: var(--transition);
@@ -142,8 +151,8 @@ html[lang="km"] select {
   text-align: center;
 }
 .btn-outline-white:hover {
-  background: #ffffff;
-  color: var(--gray-900);
+  background: var(--brand);
+  color: var(--brand-text);
 }
 
 /* =====================
@@ -228,7 +237,8 @@ input[type="password"]:focus,
 input[type="email"]:focus,
 select:focus,
 textarea:focus {
-  border-color: var(--orange-500);
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px rgba(242,183,5,0.2);
 }
 .dark input[type="text"],
 .dark input[type="password"],
@@ -254,8 +264,9 @@ input[type="range"]::-webkit-slider-thumb {
   width: 1rem;
   height: 1rem;
   border-radius: 50%;
-  background: var(--orange-500);
+  background: var(--brand);
   cursor: pointer;
+  box-shadow: 0 0 0 3px rgba(242,183,5,0.3);
 }
 
 /* =====================

@@ -12,7 +12,7 @@
       <!-- Stats -->
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="stat-icon" style="background: linear-gradient(135deg, #f97316, #eab308)">📦</div>
+          <div class="stat-icon" style="background: #f2b705; color: #111827;">📦</div>
           <div>
             <p class="stat-label">Products</p>
             <p class="stat-value">{{ store.products.length }}</p>
@@ -679,8 +679,8 @@ const showToast = (msg) => {
 .tab-btn:hover { color: #111827; border-color: #d1d5db; }
 :global(.dark) .tab-btn { color: #9ca3af; }
 :global(.dark) .tab-btn:hover { color: #f3f4f6; border-color: #374151; }
-.tab-active { border-color: #f97316 !important; color: #ea580c !important; }
-:global(.dark) .tab-active { color: #fb923c !important; }
+.tab-active { border-color: #f2b705 !important; color: #111827 !important; background: #fdf1d6 !important; }
+:global(.dark) .tab-active { color: #f2b705 !important; background: rgba(242,183,5,0.1) !important; border-color: #f2b705 !important; }
 
 .tab-content { padding: 1.5rem; }
 .tab-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; }
@@ -787,7 +787,7 @@ const showToast = (msg) => {
   color: #111827;
   box-sizing: border-box;
 }
-.form-input:focus { border-color: #f97316; box-shadow: 0 0 0 3px rgba(249,115,22,0.1); }
+.form-input:focus { border-color: #f2b705; box-shadow: 0 0 0 3px rgba(242,183,5,0.15); }
 :global(.dark) .form-input { background: #374151; border-color: #4b5563; color: #f9fafb; }
 .form-textarea { resize: vertical; min-height: 80px; line-height: 1.5; }
 .form-error { color: #ef4444; font-size: 0.85rem; margin-top: 0.5rem; }
@@ -806,7 +806,7 @@ const showToast = (msg) => {
   position: relative;
   transition: border-color 0.2s;
 }
-.img-upload-zone:hover { border-color: #f97316; }
+.img-upload-zone:hover { border-color: #f2b705; }
 .img-upload-placeholder { color: #9ca3af; font-size: 0.9rem; }
 .img-preview-wrap { position: relative; width: 100%; height: 100%; }
 .img-preview { width: 100%; height: 100%; object-fit: cover; }
@@ -843,7 +843,7 @@ const showToast = (msg) => {
   cursor: pointer;
   transition: border-color 0.2s, color 0.2s;
 }
-.thumb-add-btn:hover { border-color: #f97316; color: #f97316; }
+.thumb-add-btn:hover { border-color: #f2b705; color: #a8690a; }
 
 /* Order detail */
 .section-subtitle { font-weight: 700; font-size: 0.95rem; color: #6b7280; margin-bottom: 0.75rem; }
@@ -860,9 +860,9 @@ const showToast = (msg) => {
 .order-item-icon { font-size: 1.3rem; }
 .order-item-name { flex: 1; }
 .order-item-qty { color: #6b7280; }
-.order-item-price { font-weight: 700; color: #f97316; }
+.order-item-price { font-weight: 700; color: #a8690a; }
 .order-total-row { display: flex; justify-content: space-between; padding: 0.75rem 0 0; font-weight: 600; }
-.order-total-val { color: #f97316; font-size: 1.1rem; font-weight: 700; }
+.order-total-val { color: #a8690a; font-size: 1.1rem; font-weight: 800; }
 .customer-info-card {
   background: #f9fafb;
   border-radius: 0.5rem;
@@ -885,13 +885,13 @@ const showToast = (msg) => {
   cursor: pointer;
   transition: box-shadow 0.2s, border-color 0.2s;
 }
-.feedback-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-color: #f97316; }
-.fb-unread { border-left: 4px solid #f97316; background: #fff7ed; }
-:global(.dark) .fb-unread { background: rgba(249,115,22,0.07); }
+.feedback-card:hover { box-shadow: 0 4px 16px rgba(242,183,5,0.15); border-color: #f2b705; }
+.fb-unread { border-left: 4px solid #f2b705; background: #fdf1d6; }
+:global(.dark) .fb-unread { background: rgba(242,183,5,0.07); }
 .fb-read { opacity: 0.75; }
 .fb-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem; }
 .fb-meta { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
-.fb-dot { color: #f97316; font-size: 0.6rem; }
+.fb-dot { color: #f2b705; font-size: 0.6rem; }
 .fb-name { font-weight: 700; font-size: 0.95rem; }
 .fb-email { color: #6b7280; font-size: 0.82rem; }
 :global(.dark) .fb-email { color: #9ca3af; }

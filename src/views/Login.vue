@@ -9,7 +9,7 @@
       <div class="login-card">
         <!-- Header -->
         <div class="card-header">
-          <div class="card-logo">⚙</div>
+          <div class="card-logo"><img src="/logo-color.png" alt="KM Motobike Logo" class="navbar-logo-img" /></div>
           <h1 class="card-brand">MotoShop</h1>
           <p class="card-tagline">{{ t('login.title') }}</p>
         </div>
@@ -76,7 +76,7 @@ const handleLogin = async () => {
 <style scoped>
 .login-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #111827 0%, #1f2937 50%, #000000 100%);
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0f0f0f 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -98,8 +98,8 @@ const handleLogin = async () => {
   border-radius: 50%;
   filter: blur(60px);
 }
-.blob-orange { top: 5rem; left: 2.5rem; background-color: #f97316; }
-.blob-yellow { bottom: 5rem; right: 2.5rem; background-color: #facc15; }
+.blob-orange { top: 5rem; left: 2.5rem; background-color: #f2b705; }
+.blob-yellow { bottom: 5rem; right: 2.5rem; background-color: #d99e0b; }
 
 .login-wrap {
   position: relative;
@@ -117,23 +117,30 @@ const handleLogin = async () => {
 :global(.dark) .login-card { background-color: #111827; }
 
 .card-header {
-  background: linear-gradient(to right, #f97316, #eab308);
-  padding: 3rem 2rem;
+  background: #f2b705;
+  padding: 2.25rem 2rem 2rem;
   text-align: center;
 }
 .card-logo {
-  width: 4rem;
-  height: 4rem;
+  width: 4.5rem;
+  height: 4.5rem;
   background-color: #ffffff;
-  border-radius: 9999px;
+  border-radius: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.875rem;
   margin: 0 auto 1rem;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.18), 0 0 0 3px rgba(0,0,0,0.08);
+  padding: 0.45rem;
+  overflow: hidden;
 }
-.card-brand { font-size: 1.875rem; font-weight: 700; color: #ffffff; margin-bottom: 0.5rem; }
-.card-tagline { color: #fed7aa; }
+.card-logo .navbar-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.card-brand { font-size: 1.75rem; font-weight: 800; color: #111827; margin-bottom: 0.3rem; letter-spacing: -0.02em; }
+.card-tagline { color: #374151; font-weight: 500; font-size: 0.9rem; }
 
 .card-body { padding: 2.5rem 2rem; }
 
@@ -156,7 +163,7 @@ const handleLogin = async () => {
   transition: border-color 0.2s;
   box-sizing: border-box;
 }
-.field input:focus { border-color: #f97316; box-shadow: 0 0 0 3px rgba(249,115,22,0.15); }
+.field input:focus { border-color: #f2b705; box-shadow: 0 0 0 3px rgba(242,183,5,0.2); }
 :global(.dark) .field input {
   background-color: #1f2937;
   border-color: #374151;
@@ -183,6 +190,6 @@ const handleLogin = async () => {
 .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
 .back-link-wrap { text-align: center; margin-top: 1.5rem; }
-.back-link { color: #d1d5db; text-decoration: none; transition: color 0.3s; font-size: 0.9rem; }
-.back-link:hover { color: #f97316; }
+.back-link { color: #9ca3af; text-decoration: none; transition: color 0.3s; font-size: 0.9rem; }
+.back-link:hover { color: #f2b705; }
 </style>
