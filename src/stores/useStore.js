@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import { supabase } from '../lib/supabase'
+import { PRODUCT_CATEGORIES } from '../assets/i18n'
 
 export const useAppStore = defineStore('app', () => {
   // =============================================
@@ -135,7 +136,7 @@ export const useAppStore = defineStore('app', () => {
       .insert([{
         name: productData.name,
         description: productData.description || '',
-        category: productData.category || 'engine',
+        category: productData.category || PRODUCT_CATEGORIES[0],
         price: productData.price || 0,
         original_price: productData.originalPrice || null,
         discount: productData.discount || 0,

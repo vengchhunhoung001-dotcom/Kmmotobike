@@ -57,12 +57,8 @@
             </button>
             <transition name="mfb-pop">
               <div v-if="openMenu==='cat'" class="mfb-dropdown">
-                <button :class="['mfb-ditem', selectedCategory==='' ?'mfb-ditem--on':'']" @click="pickCat('')">全部分类</button>
-                <button :class="['mfb-ditem', selectedCategory==='engine' ?'mfb-ditem--on':'']" @click="pickCat('engine')">{{ t('products.engineParts') }}</button>
-                <button :class="['mfb-ditem', selectedCategory==='suspension' ?'mfb-ditem--on':'']" @click="pickCat('suspension')">{{ t('products.suspension') }}</button>
-                <button :class="['mfb-ditem', selectedCategory==='brakes' ?'mfb-ditem--on':'']" @click="pickCat('brakes')">{{ t('products.brakes') }}</button>
-                <button :class="['mfb-ditem', selectedCategory==='wheels' ?'mfb-ditem--on':'']" @click="pickCat('wheels')">{{ t('products.wheels') }}</button>
-                <button :class="['mfb-ditem', selectedCategory==='accessories' ?'mfb-ditem--on':'']" @click="pickCat('accessories')">{{ t('products.accessories') }}</button>
+                <button :class="['mfb-ditem', selectedCategory==='' ?'mfb-ditem--on':'']" @click="pickCat('')">{{ t('products.allCategories') }}</button>
+                <button v-for="cat in PRODUCT_CATEGORIES" :key="cat" :class="['mfb-ditem', selectedCategory===cat ?'mfb-ditem--on':'']" @click="pickCat(cat)">{{ t(`products.${cat}`) }}</button>
               </div>
             </transition>
           </div>
@@ -166,11 +162,7 @@
             <h4 class="filter-label">{{ t('products.category') }}</h4>
             <div class="radio-list">
               <label class="radio-item"><input type="radio" v-model="selectedCategory" value="" /> {{ t('products.allCategories') }}</label>
-              <label class="radio-item"><input type="radio" v-model="selectedCategory" value="engine" /> {{ t('products.engineParts') }}</label>
-              <label class="radio-item"><input type="radio" v-model="selectedCategory" value="suspension" /> {{ t('products.suspension') }}</label>
-              <label class="radio-item"><input type="radio" v-model="selectedCategory" value="brakes" /> {{ t('products.brakes') }}</label>
-              <label class="radio-item"><input type="radio" v-model="selectedCategory" value="wheels" /> {{ t('products.wheels') }}</label>
-              <label class="radio-item"><input type="radio" v-model="selectedCategory" value="accessories" /> {{ t('products.accessories') }}</label>
+              <label v-for="cat in PRODUCT_CATEGORIES" :key="cat" class="radio-item"><input type="radio" v-model="selectedCategory" :value="cat" /> {{ t(`products.${cat}`) }}</label>
             </div>
           </div>
           <div class="filter-group">
@@ -270,11 +262,7 @@
             <p class="drawer-section-label">{{ t('products.category') }}</p>
             <div class="drawer-chips">
               <button :class="['drawer-chip', selectedCategory === '' ? 'drawer-chip-active' : '']" @click="selectedCategory = ''">{{ t('products.allCategories') }}</button>
-              <button :class="['drawer-chip', selectedCategory === 'engine' ? 'drawer-chip-active' : '']" @click="selectedCategory = 'engine'">{{ t('products.engineParts') }}</button>
-              <button :class="['drawer-chip', selectedCategory === 'suspension' ? 'drawer-chip-active' : '']" @click="selectedCategory = 'suspension'">{{ t('products.suspension') }}</button>
-              <button :class="['drawer-chip', selectedCategory === 'brakes' ? 'drawer-chip-active' : '']" @click="selectedCategory = 'brakes'">{{ t('products.brakes') }}</button>
-              <button :class="['drawer-chip', selectedCategory === 'wheels' ? 'drawer-chip-active' : '']" @click="selectedCategory = 'wheels'">{{ t('products.wheels') }}</button>
-              <button :class="['drawer-chip', selectedCategory === 'accessories' ? 'drawer-chip-active' : '']" @click="selectedCategory = 'accessories'">{{ t('products.accessories') }}</button>
+              <button v-for="cat in PRODUCT_CATEGORIES" :key="cat" :class="['drawer-chip', selectedCategory === cat ? 'drawer-chip-active' : '']" @click="selectedCategory = cat">{{ t(`products.${cat}`) }}</button>
             </div>
           </div>
           <div class="drawer-section">
@@ -464,7 +452,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useAppStore } from '../stores/useStore'
-import { t } from '../assets/i18n'
+import { t, PRODUCT_CATEGORIES } from '../assets/i18n'
 
 const store = useAppStore()
 const selectedCategory = ref('')
@@ -490,8 +478,7 @@ const pickCat = (v) => { selectedCategory.value = v; openMenu.value = null }
 const pickSort = (v) => { sortBy.value = v; openMenu.value = null }
 
 const catLabel = computed(() => {
-  const m = { engine:'发动机', suspension:'悬挂', brakes:'刹车', wheels:'轮毂', accessories:'配件' }
-  return m[selectedCategory.value] || selectedCategory.value
+  return selectedCategory.value ? t(`products.${selectedCategory.value}`) : t('products.allCategories')
 })
 const sortLabel = computed(() => {
   const m = { popular:'排序', 'price-low':'价格↑', 'price-high':'价格↓', newest:'最新' }

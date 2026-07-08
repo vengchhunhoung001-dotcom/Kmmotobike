@@ -207,11 +207,9 @@
             <div class="form-group">
               <label class="form-label">分类</label>
               <select v-model="productForm.category" class="form-input">
-                <option value="engine">发动机配件</option>
-                <option value="suspension">悬挂系统</option>
-                <option value="brakes">刹车系统</option>
-                <option value="wheels">轮胎轮圈</option>
-                <option value="accessories">配件配饰</option>
+                <option v-for="cat in PRODUCT_CATEGORIES" :key="cat" :value="cat">
+                  {{ t(`products.${cat}`) }}
+                </option>
               </select>
             </div>
             <div class="form-group">
@@ -396,7 +394,7 @@
 import { ref, onMounted, computed } from 'vue'
 import { useAppStore } from '../stores/useStore'
 import { supabase } from '../lib/supabase'
-import { t } from '../assets/i18n'
+import { t, PRODUCT_CATEGORIES } from '../assets/i18n'
 
 const store = useAppStore()
 const activeTab = ref('dashboard')
@@ -437,7 +435,7 @@ const editingProductIdx = ref(-1)
 const productError = ref('')
 const mainImgInput = ref(null)
 const thumbImgInput = ref(null)
-const productForm = ref({ name: '', description: '', category: 'engine', price: 0, stock: 0, mainImg: '', thumbs: [] })
+const productForm = ref({ name: '', description: '', category: PRODUCT_CATEGORIES[0], price: 0, stock: 0, mainImg: '', thumbs: [] })
 const uploadingMain = ref(false)
 const uploadingThumb = ref(false)
 
@@ -455,7 +453,7 @@ const uploadImageToStorage = async (file, folder = 'products') => {
 
 const openAddProduct = () => {
   editingProduct.value = null
-  productForm.value = { name: '', description: '', category: 'engine', price: 0, stock: 0, mainImg: '', thumbs: [] }
+  productForm.value = { name: '', description: '', category: PRODUCT_CATEGORIES[0], price: 0, stock: 0, mainImg: '', thumbs: [] }
   productError.value = ''
   showProductModal.value = true
 }
